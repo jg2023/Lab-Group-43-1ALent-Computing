@@ -6,4 +6,18 @@ geographical data.
 
 """
 
-from .utils import sorted_by_key  # noqa
+from floodsystem.stationdata import build_station_list
+from .utils import sorted_by_key # noqa
+
+from haversine import haversine
+
+def stations_by_distance(stations, p):
+    """This function creates tuples with station name and distance from p"""
+    stations = build_station_list()
+    tuples = []
+    for station in stations:
+        coords = station.coord
+        distance = haversine(p, station.coord)
+        tuples.append((station.name, distance))
+    tuples = sorted_by_key(tuples, 1)
+    return tuples
