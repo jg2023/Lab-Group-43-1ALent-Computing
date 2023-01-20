@@ -18,7 +18,6 @@ def test_rivers_by_distance():
         distance = haversine(p, station.coord)
         tuples.append((station.name, distance))
     tuples = sorted_by_key(tuples, 1)
-    closest = tuples[0]
-    assert closest == 0.840237595667494
-    assert type(closest) == float
+    assert tuples[0] == 0.840237595667494
+    assert type(tuples[0]) == float
     assert len(coords) == len(stations)
