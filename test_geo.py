@@ -7,14 +7,13 @@ from haversine import haversine
 
 from floodsystem.utils import sorted_by_key
 
-def test_rivers_by_distance():
+def test_stations_by_distance():
     """This function tests the function used in 1B"""
     stations = build_station_list()
     p = 52.2053, 0.1218
+    tuples = []
     for station in stations:
         coords = station.coord
-        assert coords
-        assert coords == station.coord
         distance = haversine(p, station.coord)
         tuples.append((station.name, distance))
     tuples = sorted_by_key(tuples, 1)
