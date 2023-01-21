@@ -1,20 +1,20 @@
 from floodsystem import geo
 from floodsystem import stationdata
 
-def run1D1():
+def run():
     stations = stationdata.build_station_list()
-    stations_by_river = geo.stations_by_river(stations)
-    print('First 10:',stations_by_river[:10])
+    rivers_with_station = geo.rivers_with_station(stations)
+    print('First 10:',rivers_with_station[:10])
 
 if __name__ == '__main__':
-    run1D1()
+    run()
 
-def run1D2():
+def run():
     stations = stationdata.build_station_list()
     stations_by_river = geo.stations_by_river(stations)
-    print('River Aire:',stations_by_river['River Aire'])
-    print('River Cam:',stations_by_river['River Cam'])
-    print('River Thames: ',stations_by_river['River Thames'])
+    print('River Aire:', stations_by_river['River Aire'], '\n')
+    print('River Cam:', stations_by_river['River Cam'], '\n')
+    print('River Thames: ', stations_by_river['River Thames'], '\n')
 
 if __name__ == '__main__':
-    run1D2()
+    run()

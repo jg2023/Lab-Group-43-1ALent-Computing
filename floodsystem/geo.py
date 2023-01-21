@@ -35,12 +35,21 @@ def stations_within_radius(stations, centre, r):
     return close_stations
 
 def rivers_with_station(stations):
-    """From a list of stations, returns a list of rivers being monitored"""
+    """Returns a list of rivers being monitored"""
     stations = build_station_list()
-    rivers_monitored = {}
+    rivers_monitored = set()
     for station in stations:
-        river = station.river
-        if river not in rivers_monitored:
-            rivers_monitored.append(river, station.river)
-    rivers_monitored.sort()
+        rivers_monitored.add(station.river)
+    rivers_monitored = sorted(rivers_monitored)
     return rivers_monitored
+
+def stations_by_river(stations):
+    """Returns a dictionary with river names as a key and a list of all the 
+    station names on the respective river"""
+    rivers = rivers_with_station(stations)
+    river_dictionary = {}
+    for river in rivers:
+        river_dictionary[river] = [] #Generating Empty Dictionary with all river names
+    for station in stations:
+        river_dictionary[station.river].append(station.name) #Assigning values to each specific river
+    return river_dictionary

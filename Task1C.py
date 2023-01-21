@@ -1,7 +1,7 @@
 from floodsystem import geo
 from floodsystem import stationdata
 
-def run2():
+def run():
     stations = stationdata.build_station_list()
     centre = 52.2053, 0.1218
     r = 10
@@ -9,4 +9,4 @@ def run2():
     return print("Within r from centre: ", stations_within_radius)
 
 if __name__ == "__main__":
-    run2()
+    run()
