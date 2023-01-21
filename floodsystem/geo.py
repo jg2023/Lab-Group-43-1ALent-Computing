@@ -17,7 +17,7 @@ def stations_by_distance(stations, p):
     tuples = []
     for station in stations:
         coords = station.coord
-        distance = haversine(p, station.coord)
+        distance = haversine(p, coords)
         tuples.append((station.name, distance))
     tuples = sorted_by_key(tuples, 1)
     return tuples
@@ -28,8 +28,19 @@ def stations_within_radius(stations, centre, r):
     close_stations = []
     for station in stations:
         coords = station.coord
-        radial_distance = haversine(centre, station.coord)
+        radial_distance = haversine(centre, coords)
         if radial_distance < r:
             close_stations.append(station.name)
     close_stations.sort()
     return close_stations
+
+def rivers_with_station(stations):
+    """From a list of stations, returns a list of rivers being monitored"""
+    stations = build_station_list()
+    rivers_monitored = {}
+    for station in stations:
+        river = station.river
+        if river not in rivers_monitored:
+            rivers_monitored.append(river, station.river)
+    rivers_monitored.sort()
+    return rivers_monitored
