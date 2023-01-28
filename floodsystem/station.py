@@ -6,7 +6,6 @@ for manipulating/modifying station data
 
 """
 
-
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
@@ -38,3 +37,14 @@ class MonitoringStation:
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
         return d
+    
+    def typical_range_consistent(self):
+        typical_level=self.typical_range
+        try:
+            current_level=self.latest_level
+        except:
+            return False
+        if current_level>typical_level[0] and current_level<typical_level[1]:
+            return True
+        else:
+            return False

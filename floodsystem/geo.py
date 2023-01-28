@@ -53,3 +53,27 @@ def stations_by_river(stations):
     for station in stations:
         river_dictionary[station.river].append(station.name) #Assigning values to each specific river
     return river_dictionary
+
+def rivers_by_station_number(stations, N):
+    """Returns an ordered list of tuples of river names and the number of stations on 
+    the river with length N (or larger to include all rivers with the same amount of 
+    stations as the final river)"""
+    unsorted_river_dictionary={}
+    stations = build_station_list()
+    station=stations_by_river(stations)
+    list_of_stations=[]
+    for i in range(len(station)): #Creates an unordered list of tuples of rivers and the number of stations
+        list_of_stations.append((list(station)[i],len(list(station.values())[i])))
+    list_of_stations.sort(key=lambda a: a[1],reverse=True) #Orders list
+    truncated_list_of_stations=[]
+    for i in range(N): #Truncates list to length N
+        truncated_list_of_stations.append(list_of_stations[i])
+    extra_elements=True
+    i=N-1
+    while extra_elements==True: #Adds any extra elements as needed
+        if list_of_stations[i][1]==list_of_stations[i+1][1]:
+            truncated_list_of_stations.append(list_of_stations[i+1])
+            i+=1
+        else:
+            extra_elements=False
+    return truncated_list_of_stations
