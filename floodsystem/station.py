@@ -40,11 +40,21 @@ class MonitoringStation:
     
     def typical_range_consistent(self):
         typical_level=self.typical_range
-        try:
+        try:    #Tests if there is any data
             current_level=self.latest_level
         except:
             return False
-        if current_level>typical_level[0] and current_level<typical_level[1]:
+        if type(current_level)!=float: #Tests if the data is in the right format
+            return False
+        if current_level>typical_level[0] and current_level<typical_level[1]:   #Tests if the data is withing acceptable values
             return True
         else:
             return False
+
+def inconsistent_typical_range_stations(stations):
+    """Returns a list of stations that have inconsistent data"""
+    stations_with_inconsistent_data=[]
+    for station in stations:
+        if station.typical_range_consistent()==False:
+            stations_with_inconsistent_data.append(station)
+    return stations_with_inconsistent_data
