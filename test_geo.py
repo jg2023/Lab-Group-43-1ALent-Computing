@@ -3,7 +3,7 @@
 from numpy import sort
 from floodsystem.stationdata import build_station_list
 from floodsystem.station import MonitoringStation
-import haversine
+from haversine import haversine
 
 from floodsystem.utils import sorted_by_key
 from floodsystem import geo
@@ -12,30 +12,22 @@ def test_stations_by_distance():
     """This tests the function used in 1B"""
     stations = build_station_list()
     p = 52.2053, 0.1218
-    tuples = []
-    for station in stations:
-        coords = station.coord
-        distance = haversine(p, station.coord)
-        tuples.append((station.name, distance))
-    tuples = sorted_by_key(tuples, 1)
-    closest = tuples[0]
-    assert closest == 0.840237595667494
-    assert type(closest) == float
-    assert len(coords) == len(stations)
+    stations_by_distance=geo.stations_by_distance(stations, p)
+    closest=stations_by_distance[0]
+    assert type(stations_by_distance)==list
+    assert type(closest)==tuple
+    assert type(closest[0])==str
+    assert type(closest[1]) == float
+    assert closest[1] == 0.840237595667494
 
 def test_stations_within_radius():
     """This tests the function used in 1C"""
     stations = build_station_list()
     centre = 52.2053, 0.1218
     r = 10
-    close_stations = []
-    for station in stations:
-        coords = station.coord
-        assert coords
-        distance = haversine(centre, station.coord)
-        if distance < r:
-            close_stations.append(station.name)
-    close_stations.sort()
+    close_stations=geo.stations_within_radius(stations,centre,r)
+    
+    assert type(close_stations)==list
     assert close_stations[0] == 'Bin Brook'
 
 def test_rivers_with_a_staion():
