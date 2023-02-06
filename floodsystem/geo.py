@@ -52,6 +52,7 @@ def stations_by_river(stations):
         river_dictionary[river] = [] #Generating Empty Dictionary with all river names
     for station in stations:
         river_dictionary[station.river].append(station.name) #Assigning values to each specific river
+    river_dictionary={x:sorted(river_dictionary[x]) for x in river_dictionary.keys()}
     return river_dictionary
 
 def rivers_by_station_number(stations, N):

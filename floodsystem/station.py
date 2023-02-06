@@ -6,6 +6,8 @@ for manipulating/modifying station data
 
 """
 
+from floodsystem.datafetcher import fetch_latest_water_level_data
+
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
@@ -40,13 +42,10 @@ class MonitoringStation:
     
     def typical_range_consistent(self):
         typical_level=self.typical_range
-        try:    #Tests if there is any data
-            current_level=self.latest_level
-        except:
+        current_level=self.latest_level
+        if type(current_level)!=float: #Tests if the data is the right data type 
             return False
-        if type(current_level)!=float: #Tests if the data is in the right format
-            return False
-        if current_level>typical_level[0] and current_level<typical_level[1]:   #Tests if the data is withing acceptable values
+        if current_level>typical_level[0] and current_level<typical_level[1]:   #Tests if the data is within acceptable values
             return True
         else:
             return False
@@ -56,5 +55,5 @@ def inconsistent_typical_range_stations(stations):
     stations_with_inconsistent_data=[]
     for station in stations:
         if station.typical_range_consistent()==False:
-            stations_with_inconsistent_data.append(station)
+            stations_with_inconsistent_data.append(station.name)
     return stations_with_inconsistent_data
