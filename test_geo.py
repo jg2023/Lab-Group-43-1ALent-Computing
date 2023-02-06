@@ -3,7 +3,7 @@
 from numpy import sort
 from floodsystem.stationdata import build_station_list
 from floodsystem.station import MonitoringStation
-from haversine import haversine
+import haversine
 
 from floodsystem.utils import sorted_by_key
 from floodsystem import geo
