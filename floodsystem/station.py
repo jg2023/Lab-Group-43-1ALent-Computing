@@ -45,7 +45,7 @@ class MonitoringStation:
         current_level=self.latest_level
         if typical_level == None:
             return False
-        if typical_level[0] < current_level:   #Tests if the data is within acceptable values
+        if typical_level[0] < float(current_level):   #Tests if the data is within acceptable values
             return False
         else:
             return True
