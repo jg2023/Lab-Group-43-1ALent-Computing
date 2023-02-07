@@ -43,10 +43,11 @@ class MonitoringStation:
     def typical_range_consistent(self):
         typical_level=self.typical_range
         current_level=self.latest_level
-        if type(current_level)!=float: #Tests if the data is the right data type 
-            return False
-        if current_level>typical_level[0] and current_level<typical_level[1]:   #Tests if the data is within acceptable values
-            return True
+        if typical_level != None:
+            if typical_level[0]<typical_level[1]:
+                return True
+            else:
+                return False
         else:
             return False
 
