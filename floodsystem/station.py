@@ -7,6 +7,9 @@ for manipulating/modifying station data
 """
 
 from floodsystem.datafetcher import fetch_latest_water_level_data
+from . import datafetcher
+import datetime
+from tqdm import tqdm
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
@@ -40,20 +43,43 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
     
-    def typical_range_consistent(self):
-        typical_level=self.typical_range
-        current_level=self.latest_level
-        if typical_level == None:
-            return False
-        if typical_level[0] < float(current_level):   #Tests if the data is within acceptable values
-            return False
-        else:
-            return True
+    def typical_range_consistent(self,advanced):
 
-def inconsistent_typical_range_stations(stations):
-    """Returns a list of stations that have inconsistent data"""
-    stations_with_inconsistent_data=[]
-    for station in stations:
-        if station.typical_range_consistent()==False:
-            stations_with_inconsistent_data.append(station.name)
-    return stations_with_inconsistent_data
+        if self.typical_range != None:
+            if self.typical_range[0]<self.typical_range[1] and self.typical_range[0]>=0 and self.typical_range[1]>=0: 
+                if not advanced:              
+                    return True
+                else:
+                    dates,levels = datafetcher.fetch_measure_levels(self.measure_id,dt = datetime.timedelta(days = 2))
+                    if len(dates) > 1 and len(levels)>1:
+                        return True
+        return False            
+
+    def relative_water_level(self):
+        low, high = self.typical_range[0], self.typical_range[1]
+        if self.latest_level!=None:
+            level = self.latest_level-low
+            self.relative_level = level/high
+            return level/high
+        print(f"No latest level found for station: {self.name}")
+        self.relative_level = 0
+        return 0
+
+def inconsistent_typical_range_stations(stations,reverse = False,advanced = False):
+    inconsistent_station_list = []
+    consistent_station_list = []
+    for station in tqdm(stations,desc = "Loading advanced inconsistent stations: "):
+        A = station.typical_range_consistent(advanced)
+        if not A:
+            inconsistent_station_list.append(station.name)
+        else:
+            consistent_station_list.append(station)
+    
+    if not reverse:
+        return inconsistent_station_list
+    else:
+        return consistent_station_list 
+
+def set_relative_water_levels(stations):
+    for station in tqdm(stations, desc = "Setting relative water levels"):
+        station.relative_water_level()
