@@ -1,7 +1,11 @@
 """Unit test for the utils module"""
 
+from distutils.command.build import build
 import floodsystem.utils
-
+from floodsystem.stationdata import build_station_list
+from floodsystem.utils import fetch_station_list_levels
+from floodsystem.station import MonitoringStation
+from floodsystem.utils import assess_flood_risk
 
 def test_sort():
     """Test sort container by specific index"""
@@ -55,3 +59,29 @@ def test_reverse_sort():
     assert list1[0] == c
     assert list1[1] == a
     assert list1[2] == b
+
+def test_fetch_station_list_levels():
+    stations = build_station_list()
+    stations = stations[:10]
+    top2Stations = fetch_station_list_levels(stations,1,2)
+    top5Stations = fetch_station_list_levels(stations,1,5)
+    assert top2Stations
+    assert top5Stations
+    assert type(top2Stations) == list
+    assert type(top5Stations) == list
+    assert len(top2Stations)<= len(top5Stations)
+    for i in top2Stations:
+        assert type(i) ==MonitoringStation
+    for i in top5Stations:
+        assert type(i) == MonitoringStation
+
+def test_assess_flood_risk():
+    stations = build_station_list()
+    stations = stations[:100]
+    Risk = assess_flood_risk(stations)
+    assert type(Risk) == list
+    if len(Risk)>0:
+        for i in Risk:
+            assert type(i) == tuple
+            assert type(i[0]) == str
+            assert i[1] == "High Risk" or i[1] == "Medium Risk" or i[1] == "Low Risk"
