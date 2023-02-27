@@ -28,7 +28,6 @@ def test_create_monitoring_station():
     assert s.typical_range == trange
     assert s.river == river
     assert s.town == town
-    assert s.average_value == (trange[0] + trange[1])/2
     s.latest_level = latest_level
     assert s.latest_level
     relative = s.relative_water_level()

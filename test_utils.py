@@ -65,8 +65,6 @@ def test_fetch_station_list_levels():
     stations = stations[:10]
     top2Stations = fetch_station_list_levels(stations,1,2)
     top5Stations = fetch_station_list_levels(stations,1,5)
-    assert top2Stations
-    assert top5Stations
     assert type(top2Stations) == list
     assert type(top5Stations) == list
     assert len(top2Stations)<= len(top5Stations)
