@@ -82,4 +82,4 @@ def test_assess_flood_risk():
         for i in Risk:
             assert type(i) == tuple
             assert type(i[0]) == str
-            assert i[1] == "High Risk" or i[1] == "Medium Risk" or i[1] == "Low Risk"
+            assert i[1] == "Severe" or i[1] == "High" or i[1] == "Medium" or i[1] == "Low"

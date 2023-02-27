@@ -69,18 +69,21 @@ def assess_flood_risk(stations):
 	HighThreshold = 1.1
 	MedTheshold = 1.0
 	LowThreshold = 0.8
+	SevereRiskTowns = []
 	HighRiskTowns = []
 	MedRiskTowns = []
 	LowRiskTowns = []
 	for station in stations:
 		if station.relative_level >= HighThreshold:
-			HighRiskTowns.append((station.town,"High Risk"))
+			SevereRiskTowns.append((station.town,"Severe"))
 		elif station.relative_level >= MedTheshold:
-			MedRiskTowns.append((station.town,"Medium Risk"))
+			HighRiskTowns.append((station.town,"High"))
 		elif station.relative_level >= LowThreshold:
-			LowRiskTowns.append((station.town,"Low Risk"))
+			MedRiskTowns.append((station.town,"Medium"))
+		else:
+			LowRiskTowns.append((station.town,"Low"))
 	HighRiskTowns = sorted_by_key(HighRiskTowns,0,True)
 	MedRiskTowns = sorted_by_key(MedRiskTowns,0,True)
 	LowRiskTowns = sorted_by_key(LowRiskTowns,0,True)
-	Towns =  HighRiskTowns+MedRiskTowns+LowRiskTowns
+	Towns =  SevereRiskTowns+HighRiskTowns+MedRiskTowns+LowRiskTowns
 	return Towns
