@@ -40,7 +40,7 @@ class MonitoringStation:
         d += "   coordinate:    {}\n".format(self.coord)
         d += "   town:          {}\n".format(self.town)
         d += "   river:         {}\n".format(self.river)
-        d += "   typical range: {}".format(self.typical_range)
+        d += "   typical range: {}\n".format(self.typical_range)
         return d
     
     def typical_range_consistent(self,advanced):
@@ -59,8 +59,8 @@ class MonitoringStation:
         low, high = self.typical_range[0], self.typical_range[1]
         if self.latest_level!=None:
             level = self.latest_level-low
-            self.relative_level = level/high
-            return level/high
+            self.relative_level = level/(high-low)
+            return self.relative_level
         print(f"No latest level found for station: {self.name}")
         self.relative_level = 0
         return 0
