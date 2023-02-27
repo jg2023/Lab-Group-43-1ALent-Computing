@@ -50,7 +50,7 @@ class MonitoringStation:
                 if not advanced:              
                     return True
                 else:
-                    dates,levels = datafetcher.fetch_measure_levels(self.measure_id,dt = datetime.timedelta(days = 2))
+                    dates,levels = datafetcher.fetch_measure_levels(self.measure_id,dt = datetime.timedelta(days = .5))
                     if len(dates) > 1 and len(levels)>1:
                         return True
         return False            
@@ -69,7 +69,7 @@ def inconsistent_typical_range_stations(stations,reverse = False,advanced = Fals
     inconsistent_station_list = []
     consistent_station_list = []
     for station in tqdm(stations,desc = "Loading advanced inconsistent stations: "):
-        A = station.typical_range_consistent(advanced)
+        A = station.typical_range_consistent(advanced=False)
         if not A:
             inconsistent_station_list.append(station.name)
         else:

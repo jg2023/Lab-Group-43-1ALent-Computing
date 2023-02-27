@@ -18,6 +18,7 @@ def run():
         dates,levels = fetch_measure_levels(station.measure_id,dt = datetime.timedelta(days = 10))
         station.level_history = (dates,levels)
         plot_water_levels(station,station.level_history[0],station.level_history[1])
+
 """
 def run():
     stations = build_station_list()
