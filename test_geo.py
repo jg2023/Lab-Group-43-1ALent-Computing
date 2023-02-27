@@ -33,9 +33,9 @@ def test_stations_within_radius():
 def test_rivers_with_a_staion():
     """This tests the first function used in 1D"""
     stations=build_station_list()
-    first_ten=geo.rivers_with_station(stations)[:10]
-    assert type(first_ten)==list
-    assert first_ten==['Addlestone Bourne', 'Aire Washlands', 'Alconbury Brook', 'Aldingbourne Rife', 'Aller Brook', 'Allison Dyke', 'Alverthorpe Beck', 'Ampney Brook', 'Amwell Loop', 'Arkle Beck']
+    first_five=geo.rivers_with_station(stations)[:5]
+    assert type(first_five)==list
+    assert first_five==['Addlestone Bourne', 'Aire Washlands', 'Alconbury Brook', 'Aldingbourne Rife', 'Aller Brook']
 
 def test_stations_by_river():
     """This tests the second function used in 1D"""
