@@ -7,7 +7,6 @@ from floodsystem.datafetcher import fetch_measure_levels
 from floodsystem.utils import fetch_station_list_levels
 import datetime
 from tqdm import tqdm
-#You must pip install tqdm!!!
 
 def run():
     stations = build_station_list()
