@@ -69,5 +69,5 @@ def test_set_relative_levels():
     assert s.relative_level
     assert s2.relative_level
     assert s2.latest_level
-    assert s.relative_level == (s.latest_level-s.typical_range[0])/s.typical_range[1]
-    assert s2.relative_level == (s2.latest_level-s2.typical_range[0])/s2.typical_range[1]
+    assert s.relative_level == (s.latest_level-s.typical_range[0])/(s.typical_range[1]-s.typical_range[0])
+    assert s2.relative_level == (s2.latest_level-s2.typical_range[0])/(s2.typical_range[1]-s2.typical_range[0])
