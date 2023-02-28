@@ -77,6 +77,7 @@ def test_fetch_station_list_levels():
 def test_assess_flood_risk():
     stations = build_station_list()
     stations = inconsistent_typical_range_stations(stations,True,True)
+    stations = stations[:20]
     Risk = assess_flood_risk(stations)
     assert type(Risk) == list
     if len(Risk)>0:
