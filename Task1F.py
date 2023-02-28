@@ -5,7 +5,7 @@ from floodsystem.station import inconsistent_typical_range_stations
 def run():
     stations=build_station_list()
     for station in stations:
-        print(station.typical_range_consistent())
+        print(station.typical_range_consistent(advanced=False))
 
 if __name__ == "__main__":
     print("*** Task 1F: CUED Part IA Flood Warning System ***")
