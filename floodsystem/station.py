@@ -10,6 +10,7 @@ from floodsystem.datafetcher import fetch_latest_water_level_data
 from . import datafetcher
 import datetime
 from tqdm import tqdm
+from turtle import update
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
@@ -64,7 +65,7 @@ class MonitoringStation:
         print(f"No latest level found for station: {self.name}")
         self.relative_level = 0
         return 0
-
+    
 def inconsistent_typical_range_stations(stations,reverse = False,advanced = False):
     inconsistent_station_list = []
     consistent_station_list = []
