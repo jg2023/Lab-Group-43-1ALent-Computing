@@ -16,6 +16,7 @@ def plot_water_levels(station,dates,levels):
     plt.show()
 
 def plot_water_level_with_fit(station,dates,levels,p):
+    plt.rcParams['figure.figsize']=[18,10]
     polyVal = []
     for date in dates:
         polyVal.append(p(matplotlib.dates.date2num(date)))

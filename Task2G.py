@@ -6,6 +6,7 @@ def run():
     stations = inconsistent_typical_range_stations(stations,True,True)
     Towns = assess_flood_risk(stations)
     print(Towns)
+    print(len(Towns))
 
 
 if __name__ == "__main__":
