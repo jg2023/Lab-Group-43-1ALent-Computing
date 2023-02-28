@@ -82,8 +82,5 @@ def assess_flood_risk(stations):
 			MedRiskTowns.append((station.town,"Medium"))
 		else:
 			LowRiskTowns.append((station.town,"Low"))
-	HighRiskTowns = sorted_by_key(HighRiskTowns,0,True)
-	MedRiskTowns = sorted_by_key(MedRiskTowns,0,True)
-	LowRiskTowns = sorted_by_key(LowRiskTowns,0,True)
 	Towns =  SevereRiskTowns+HighRiskTowns+MedRiskTowns+LowRiskTowns
 	return Towns
