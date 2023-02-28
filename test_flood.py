@@ -3,6 +3,8 @@ from floodsystem.stationdata import update_water_levels
 from floodsystem.stationdata import build_station_list
 from floodsystem.flood import stations_level_over_threshold
 from floodsystem.flood import stations_highest_rel_level
+from floodsystem.station import inconsistent_typical_range_stations
+
 def test_stations_level_over_threshold():
     stations = build_station_list()
     update_water_levels(stations)
@@ -24,10 +26,9 @@ def test_stations_level_over_threshold():
         
 def test_stations_highest_rel_level():
     stations = build_station_list()
+    stations = inconsistent_typical_range_stations(stations,True,True)
     update_water_levels(stations)
     highest2 = stations_highest_rel_level(stations,2)
     highest10 = stations_highest_rel_level(stations,10)
-    assert highest2
-    assert highest10
     assert len(highest2)==2 and len(highest10) == 10
     assert highest10[:2] == highest2

@@ -66,21 +66,22 @@ def fetch_station_list_levels(stations,dt,N):
 def assess_flood_risk(stations):
 	update_water_levels(stations)
 	set_relative_water_levels(stations)
-	HighThreshold = 1.1
-	MedTheshold = 1.0
-	LowThreshold = 0.8
+	SevereThreshold = 1.1
+	HighTheshold = 1.0
+	MediumThreshold = 0.8
+	LowThreshold = 0.6
+	SevereRiskTowns = []
 	HighRiskTowns = []
 	MedRiskTowns = []
 	LowRiskTowns = []
 	for station in stations:
-		if station.relative_level >= HighThreshold:
-			HighRiskTowns.append((station.town,"High Risk"))
-		elif station.relative_level >= MedTheshold:
-			MedRiskTowns.append((station.town,"Medium Risk"))
+		if station.relative_level >= SevereThreshold:
+			SevereRiskTowns.append((station.town,"Severe"))
+		elif station.relative_level >= HighTheshold:
+			HighRiskTowns.append((station.town,"High"))
+		elif station.relative_level >= MediumThreshold:
+			MedRiskTowns.append((station.town,"Medium"))
 		elif station.relative_level >= LowThreshold:
-			LowRiskTowns.append((station.town,"Low Risk"))
-	HighRiskTowns = sorted_by_key(HighRiskTowns,0,True)
-	MedRiskTowns = sorted_by_key(MedRiskTowns,0,True)
-	LowRiskTowns = sorted_by_key(LowRiskTowns,0,True)
-	Towns =  HighRiskTowns+MedRiskTowns+LowRiskTowns
+			LowRiskTowns.append((station.town,"Low"))
+	Towns =  SevereRiskTowns+HighRiskTowns+MedRiskTowns+LowRiskTowns
 	return Towns

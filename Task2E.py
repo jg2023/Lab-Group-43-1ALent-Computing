@@ -5,9 +5,9 @@ from floodsystem.stationdata import update_water_levels
 from floodsystem.station import inconsistent_typical_range_stations
 from floodsystem.datafetcher import fetch_measure_levels
 from floodsystem.utils import fetch_station_list_levels
+from floodsystem import station
 import datetime
 from tqdm import tqdm
-#You must pip install tqdm!!!
 
 def run():
     stations = build_station_list()
@@ -19,12 +19,6 @@ def run():
         dates,levels = fetch_measure_levels(station.measure_id,dt = datetime.timedelta(days = 10))
         station.level_history = (dates,levels)
         plot_water_levels(station,station.level_history[0],station.level_history[1])
-"""
-def run():
-    stations = build_station_list()
-    topFive = fetch_station_list_levels(stations,2,5)
-    for station in topFive:
-        plot_water_levels(station,station.level_history[0],station.level_history[1])
-"""
+
 if __name__ == "__main__":
     run()
